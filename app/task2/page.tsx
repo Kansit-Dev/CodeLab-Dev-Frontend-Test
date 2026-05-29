@@ -1,5 +1,6 @@
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { CrystalBall } from './crystal-ball'
+import { HomeButton } from '@/components/home-button'
 import {
   FloatingEmbers,
   FortuneHeader,
@@ -10,6 +11,7 @@ import {
 export default function FortuneTellingPage() {
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-[#170607] pb-8 text-[#ead7ba]">
+      <HomeButton dark />
       <div
         className="fixed inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/tarot-bg-clean-stand.png')" }}

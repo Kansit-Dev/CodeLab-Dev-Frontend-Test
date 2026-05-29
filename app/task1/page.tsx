@@ -1,4 +1,7 @@
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { CustomCursor } from '@/components/custom-cursor'
+import { MarqueeBanner } from '@/components/marquee'
+import { HomeButton } from '@/components/home-button'
 import { Navbar } from './navbar'
 import {
   BrandStatement,
@@ -12,7 +15,10 @@ import {
 
 export default function OracleLandingPage() {
   return (
-    <main className="bg-[var(--oracle-cream)]">
+    <main className="bg-[var(--oracle-cream)] cursor-none">
+      <CustomCursor />
+      <HomeButton />
+      <MarqueeBanner text="FREE WORLDWIDE SHIPPING ON ORDERS OVER $200 — THE NEW SPRING/SUMMER COLLECTION HAS ARRIVED — " />
       <Navbar />
       <Hero />
       <ScrollReveal>

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { TAROT_FAN, TOPIC_CHIPS } from './data'
 
@@ -11,6 +11,14 @@ function seededRange(seed: number, min: number, max: number) {
 }
 
 export function FloatingEmbers() {
+  const [isMounted, setIsMounted] = useState(false)
+  
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) return null
+
   const embers = Array.from({ length: 26 }, (_, i) => ({
     id: i,
     x: seededRange(i + 1, 15, 85),
@@ -109,6 +117,22 @@ function OrnateDivider() {
 }
 
 export function FortuneHeader() {
+  const text1 = "คุณอยากถาม"
+  const text2 = "เรื่องอะไร ?"
+  
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.5 }
+    }
+  }
+
+  const charVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+  }
+
   return (
     <motion.header
       className="relative z-30 mx-auto w-full max-w-4xl px-5 pt-10 text-center md:pt-12"
@@ -116,29 +140,42 @@ export function FortuneHeader() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
     >
-      <h1
+      <motion.h1
         className="mb-2 font-[family-name:var(--font-pridi)] text-[clamp(2rem,4.2vw,3.45rem)] font-semibold leading-tight tracking-wide"
         style={{
           color: '#e7c56c',
           textShadow: '0 0 24px rgba(231,197,108,0.38), 0 3px 8px rgba(0,0,0,0.7)',
           overflowWrap: 'anywhere',
         }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
       >
-        คุณอยากถาม<span className="sm:hidden"><br /></span>เรื่องอะไร ?
-      </h1>
+        {text1.split('').map((char, index) => (
+          <motion.span key={`char1-${index}`} variants={charVariants}>{char}</motion.span>
+        ))}
+        <span className="sm:hidden"><br /></span>
+        <span className="hidden sm:inline"> </span>
+        {text2.split('').map((char, index) => (
+          <motion.span key={`char2-${index}`} variants={charVariants}>{char}</motion.span>
+        ))}
+      </motion.h1>
       <OrnateDivider />
-      <p
+      <motion.p
         className="mx-auto max-w-[540px] text-[clamp(0.9rem,1.55vw,1.35rem)] font-light leading-relaxed"
         style={{
           color: 'rgba(231,218,197,0.76)',
           textShadow: '0 2px 8px rgba(0,0,0,0.82)',
           overflowWrap: 'anywhere',
         }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
       >
         เลือกหัวข้อหรือพิมพ์คำถามที่คุณอยากรู้ในตอนนี้
         <br />
         หรือคุณจะข้ามขั้นตอนนี้ไปก่อนก็ได้
-      </p>
+      </motion.p>
     </motion.header>
   )
 }
@@ -250,7 +287,7 @@ export function TableTarotFan() {
       {TAROT_FAN.map((card, index) => (
         <motion.div
           key={`${card.x}-${card.r}`}
-          className="absolute bottom-0 h-[92px] w-[58px] rounded-[6px] border"
+          className="absolute bottom-0 h-[92px] w-[58px] rounded-[6px] border cursor-pointer pointer-events-auto"
           style={{
             left: `${card.x}%`,
             rotate: card.r,
@@ -262,6 +299,13 @@ export function TableTarotFan() {
           }}
           initial={{ opacity: 0, y: 28, rotate: card.r - 6 }}
           animate={{ opacity: 0.92, y: 0, rotate: card.r }}
+          whileHover={{ 
+            y: -15, 
+            scale: 1.15,
+            opacity: 1, 
+            zIndex: 50,
+            boxShadow: '0 15px 30px rgba(0,0,0,0.6), inset 0 0 0 2px rgba(226,180,77,0.8), 0 0 15px rgba(226,180,77,0.4)'
+          }}
           transition={{ duration: 0.7, delay: 0.72 + index * 0.06, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="absolute inset-2 rounded-[4px] border border-[#e2b44d]/46" />

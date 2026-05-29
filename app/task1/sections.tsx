@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { ParallaxImage } from '@/components/parallax-image'
 import { HERO_IMAGE, LOOKBOOK_IMAGES, PRODUCTS, TESTIMONIALS } from './data'
 
 function SectionHeading({
@@ -30,15 +31,14 @@ function SocialMark({ children }: { children: React.ReactNode }) {
 export function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-20">
-      <Image
-        src={HERO_IMAGE}
-        alt="Editorial fashion — quiet luxury collection"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-        placeholder="empty"
-      />
+      <div className="absolute inset-0">
+        <ParallaxImage
+          src={HERO_IMAGE}
+          alt="Editorial fashion — quiet luxury collection"
+          priority
+          className="w-full h-full"
+        />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-b from-[#FAF7F2]/78 via-[#FAF7F2]/68 to-[#FAF7F2]/88" />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
