@@ -1,0 +1,445 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-playfair: Georgia, 'Times New Roman', serif;
+  --font-inter: 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-dm-sans: 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-pridi: Georgia, 'Times New Roman', 'Tahoma', serif;
+  --font-sarabun: 'Leelawadee UI', 'Tahoma', 'Segoe UI', sans-serif;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Task 1 — design tokens */
+.task1-theme {
+  --oracle-cream: #faf7f2;
+  --oracle-sand: #ede8e1;
+  --oracle-ink: #2c1f14;
+  --oracle-taupe: #8b7355;
+  --oracle-blush: #d4a5a0;
+  --oracle-border: #d4c5b5;
+}
+
+/* Task 1 — utilities */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .oracle-nav-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(212, 165, 160, 0.85);
+  }
+}
+
+/* =========================================
+   Crystal Ball Animation
+========================================= */
+
+/* ลูกแก้ว — อยู่กับที่บนฉาก (ref) ไม่ลอยขึ้นลง */
+.crystal-ball-anchor {
+  transform: translateX(-50%);
+  animation: crystalEnter 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+/* Container หลัก */
+.crystal-ball-container {
+  --ball-size: clamp(160px, 18vw, 290px);
+  position: relative;
+  width: var(--ball-size);
+  height: var(--ball-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Glow Animation — แสงหายใจรอบลูก */
+.crystal-ball-glow {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  z-index: 0;
+  background: radial-gradient(
+    circle,
+    rgba(210, 130, 255, 0.5) 0%,
+    rgba(150, 60, 230, 0.28) 42%,
+    transparent 70%
+  );
+  animation: pulseGlow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.crystal-ball-glow--outer {
+  inset: -22%;
+  z-index: 0;
+  background: radial-gradient(
+    circle,
+    rgba(120, 40, 200, 0.12) 0%,
+    transparent 65%
+  );
+  animation: pulseGlowOuter 5.5s ease-in-out infinite;
+  animation-delay: -1.2s;
+}
+
+/* 2. Crystal ball image — glow ที่ตัวลูก ไม่ขยับตำแหน่ง */
+.crystal-ball-img {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  z-index: 2;
+  mix-blend-mode: screen;
+  clip-path: circle(45% at center);
+  animation: crystalAura 4.2s ease-in-out infinite;
+  user-select: none;
+}
+
+/* 3. วงเวทย์ — กลืนกับลูก ไม่แบบสติกเกอร์ */
+.magic-circle {
+  position: absolute;
+  width: 68%;
+  height: 68%;
+  z-index: 3;
+  mix-blend-mode: screen;
+  filter:
+    drop-shadow(0 0 4px rgba(255, 220, 255, 0.55))
+    drop-shadow(0 0 12px rgba(180, 100, 255, 0.45));
+  animation: spinSlow 24s linear infinite;
+  opacity: 0.76;
+}
+
+/* 4. พลังงานภายใน */
+.crystal-inner-pulse {
+  position: absolute;
+  width: 68%;
+  height: 68%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 220, 255, 0.14) 0%,
+    rgba(200, 100, 255, 0.08) 45%,
+    transparent 70%
+  );
+  animation: innerPulse 2.5s ease-in-out infinite;
+  z-index: 4;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* 5. เงาขอบใน — หลอกมิติว่าอยู่ "ข้างใน" ทรงกลม */
+.crystal-sphere-depth {
+  position: absolute;
+  width: 68%;
+  height: 68%;
+  border-radius: 50%;
+  z-index: 5;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  box-shadow:
+    inset 0 0 32px rgba(12, 0, 28, 0.72),
+    inset 0 0 14px rgba(0, 0, 0, 0.45),
+    inset 0 -6px 18px rgba(80, 20, 120, 0.25);
+}
+
+/* 6. แสงสะท้อนที่ฐาน / ผ้าโต๊ะ */
+.crystal-pedestal-glow {
+  position: absolute;
+  left: 50%;
+  top: calc(100% - 6%);
+  z-index: 1;
+  width: 92%;
+  height: 28%;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse 80% 55% at 50% 0%,
+    rgba(170, 90, 255, 0.42) 0%,
+    rgba(120, 40, 200, 0.18) 42%,
+    transparent 72%
+  );
+  filter: blur(16px);
+  mix-blend-mode: screen;
+  animation: pedestalGlow 4.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* =========================================
+   Keyframes
+========================================= */
+
+@keyframes crystalEnter {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.92;
+  }
+}
+
+@keyframes pulseGlowOuter {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.65;
+  }
+}
+
+@keyframes crystalAura {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 10px rgba(200, 80, 255, 0.85))
+      drop-shadow(0 0 24px rgba(170, 50, 255, 0.75))
+      drop-shadow(0 0 48px rgba(140, 0, 220, 0.55));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 16px rgba(230, 130, 255, 1))
+      drop-shadow(0 0 36px rgba(190, 80, 255, 0.95))
+      drop-shadow(0 0 64px rgba(150, 40, 230, 0.75));
+  }
+}
+
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes innerPulse {
+  0%, 100% {
+    transform: scale(0.96);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.9;
+  }
+}
+
+@keyframes pedestalGlow {
+  0%, 100% {
+    opacity: 0.48;
+    transform: translateX(-50%) scaleX(0.96);
+  }
+  50% {
+    opacity: 0.82;
+    transform: translateX(-50%) scaleX(1.06);
+  }
+}
+
+/* Glassmorphism Motion — กล่องคำถาม */
+.oracle-glass-panel {
+  animation: glassBreath 6s ease-in-out infinite;
+}
+
+@keyframes glassBreath {
+  0%, 100% {
+    border-color: rgba(213, 178, 91, 0.38);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.62);
+  }
+  50% {
+    border-color: rgba(228, 198, 120, 0.5);
+    box-shadow:
+      0 28px 70px rgba(0, 0, 0, 0.55),
+      0 0 36px rgba(160, 90, 220, 0.1);
+  }
+}
+
+/* =========================================
+   Lookbook — Infinite Marquee Loop
+========================================= */
+
+@keyframes lookbook-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.lookbook-track {
+  display: flex;
+  width: max-content;
+  animation: lookbook-marquee 28s linear infinite;
+  will-change: transform;
+}
+
+/* Pause on hover */
+@media (hover: hover) and (pointer: fine) {
+  .lookbook-scroll:hover .lookbook-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Topic chips — hover เฉพาะอุปกรณ์ที่มีเมาส์ */
+.topic-chip {
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    background 0.22s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .topic-chip:hover {
+    transform: translateY(-3px);
+    border-color: rgba(232, 201, 111, 0.88) !important;
+    color: #fffef8 !important;
+    background: linear-gradient(
+      180deg,
+      rgba(48, 14, 14, 0.97),
+      rgba(10, 4, 5, 0.98)
+    ) !important;
+    box-shadow:
+      0 12px 22px rgba(0, 0, 0, 0.58),
+      0 0 18px rgba(215, 181, 93, 0.38) !important;
+  }
+
+  .topic-chip--selected:hover {
+    border-color: #f2d67e !important;
+    color: #ffffff !important;
+    box-shadow:
+      0 12px 24px rgba(0, 0, 0, 0.52),
+      0 0 22px rgba(215, 181, 93, 0.48) !important;
+  }
+}
