@@ -237,9 +237,9 @@ function TestimonialCard({
       >
         &ldquo;
       </p>
-      <p className="mb-6 text-sm leading-relaxed text-[#2C1F14]">{quote}</p>
+      <p className="mb-6 font-[family-name:var(--font-playfair)] text-sm italic leading-relaxed text-[#2C1F14]">{quote}</p>
       <footer>
-        <cite className="font-[family-name:var(--font-playfair)] not-italic text-[#2C1F14]">
+        <cite className="not-italic font-medium text-[#2C1F14]">
           {author}
         </cite>
         <p className="text-xs uppercase tracking-wider text-[#8B7355]">{location}</p>
