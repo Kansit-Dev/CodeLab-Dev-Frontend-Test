@@ -41,13 +41,13 @@ export function Hero() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-[#FAF7F2]/78 via-[#FAF7F2]/68 to-[#FAF7F2]/88" />
 
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
+      <div className="relative z-10 mx-auto max-w-7xl text-center">
         <p className="mb-6 text-xs uppercase tracking-[0.3em] text-[#8B7355]">Spring/Summer 2026</p>
-        <h1 className="font-[family-name:var(--font-playfair)] text-balance text-5xl font-light leading-tight tracking-[0.05em] text-[#2C1F14] md:text-7xl lg:text-8xl">
+        <h1 className="font-[family-name:var(--font-playfair)] text-balance text-[clamp(4rem,10vw,9rem)] font-light leading-[0.9] tracking-[0.02em] text-[#2C1F14]">
           Embrace Your <br />
           Quiet Luxury
         </h1>
-        <p className="mx-auto mb-12 mt-8 max-w-xl text-sm leading-relaxed text-[#8B7355] md:text-base">
+        <p className="mx-auto mb-12 mt-12 max-w-xl text-sm leading-relaxed text-[#8B7355] md:text-base">
           Discover timeless elegance crafted for the modern woman. Each piece tells a story of
           sophistication and understated beauty.
         </p>
@@ -302,7 +302,7 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
           <Link
             href="/task1"
-            className="font-[family-name:var(--font-playfair)] text-xl tracking-[0.15em] text-[#2C1F14]"
+            className="font-[family-name:var(--font-playfair)] text-sm tracking-[0.4em] text-[#2C1F14] opacity-80"
           >
             ORACLE
           </Link>

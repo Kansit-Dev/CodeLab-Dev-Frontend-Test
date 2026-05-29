@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { TAROT_FAN, TOPIC_CHIPS } from './data'
@@ -56,7 +56,7 @@ export function FloatingEmbers() {
             duration: ember.duration,
             delay: ember.delay,
             repeat: Infinity,
-            ease: 'easeOut',
+            ease: 'easeOut' as const,
           }}
         />
       ))}
@@ -117,20 +117,26 @@ function OrnateDivider() {
 }
 
 export function FortuneHeader() {
-  const text1 = "คุณอยากถาม"
-  const text2 = "เรื่องอะไร ?"
+  const text = "คุณอยากถามเรื่องอะไร ?"
   
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.5 }
+      transition: { 
+        staggerChildren: 0.06, 
+        delayChildren: 0.5 
+      }
     }
   }
 
-  const charVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+  const charVariants: Variants = {
+    hidden: { opacity: 0, x: -2 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.2, ease: "easeOut" } 
+    }
   }
 
   return (
@@ -138,10 +144,10 @@ export function FortuneHeader() {
       className="relative z-30 mx-auto w-full max-w-4xl px-5 pt-10 text-center md:pt-12"
       initial={{ opacity: 0, y: -14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] as const }}
     >
       <motion.h1
-        className="mb-2 font-[family-name:var(--font-pridi)] text-[clamp(2rem,4.2vw,3.45rem)] font-semibold leading-tight tracking-wide"
+        className="mx-auto mb-2 max-w-[90%] font-[family-name:var(--font-pridi)] text-[clamp(1.8rem,4vw,3.5rem)] font-semibold leading-tight tracking-wide"
         style={{
           color: '#e7c56c',
           textShadow: '0 0 24px rgba(231,197,108,0.38), 0 3px 8px rgba(0,0,0,0.7)',
@@ -151,18 +157,13 @@ export function FortuneHeader() {
         initial="hidden"
         animate="visible"
       >
-        {text1.split('').map((char, index) => (
-          <motion.span key={`char1-${index}`} variants={charVariants}>{char}</motion.span>
-        ))}
-        <span className="sm:hidden"><br /></span>
-        <span className="hidden sm:inline"> </span>
-        {text2.split('').map((char, index) => (
-          <motion.span key={`char2-${index}`} variants={charVariants}>{char}</motion.span>
+        {text.split('').map((char, index) => (
+          <motion.span key={`char-${index}`} variants={charVariants}>{char}</motion.span>
         ))}
       </motion.h1>
       <OrnateDivider />
       <motion.p
-        className="mx-auto max-w-[540px] text-[clamp(0.9rem,1.55vw,1.35rem)] font-light leading-relaxed"
+        className="mx-auto mt-6 max-w-[620px] text-[clamp(1rem,1.8vw,1.45rem)] font-light leading-relaxed"
         style={{
           color: 'rgba(231,218,197,0.76)',
           textShadow: '0 2px 8px rgba(0,0,0,0.82)',
@@ -170,7 +171,7 @@ export function FortuneHeader() {
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+        transition={{ delay: 1.8, duration: 1 }}
       >
         เลือกหัวข้อหรือพิมพ์คำถามที่คุณอยากรู้ในตอนนี้
         <br />
@@ -192,7 +193,7 @@ function OracleButton({
   return (
     <motion.button
       type="button"
-      className="oracle-cta-btn relative h-12 min-w-[168px] overflow-hidden rounded-full border px-8 font-[family-name:var(--font-pridi)] text-base font-semibold tracking-wide sm:min-w-[196px]"
+      className="oracle-cta-btn relative h-12 w-[180px] overflow-hidden rounded-full border font-[family-name:var(--font-pridi)] text-base font-semibold tracking-wide sm:w-[200px]"
       style={{
         color: primary ? '#f3e4b7' : '#ead9a2',
         borderColor: primary ? 'rgba(244,226,163,0.72)' : 'rgba(232,203,129,0.62)',
@@ -214,22 +215,30 @@ function OracleButton({
   )
 }
 
-export function QuestionPanel() {
-  const [selected, setSelected] = useState(0)
-
+export function QuestionPanel({ 
+  selectedTopic,
+  onTopicChange,
+  onQuestionChange,
+  onNext 
+}: { 
+  selectedTopic: number
+  onTopicChange: (index: number) => void
+  onQuestionChange?: (val: string) => void
+  onNext?: () => void
+}) {
   return (
     <ScrollReveal className="relative z-30 mx-auto flex w-full max-w-[760px] flex-col items-center px-4" delay={0.1}>
       <motion.section
         className="flex w-full flex-col items-center"
-        style={{ marginTop: 'clamp(250px, 42vh, 400px)' }}
+        style={{ marginTop: 'clamp(160px, 28vh, 240px)' }}
         initial={{ opacity: 0, y: 28 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.9, delay: 0.42, ease: [0.16, 1, 0.3, 1] as const }}
       >
         <div
           className="oracle-glass-panel relative w-full overflow-hidden rounded-[18px] border px-7 py-6 shadow-[0_28px_70px_rgba(0,0,0,0.62)]"
           style={{
-            minHeight: 'clamp(126px, 18vh, 170px)',
+            minHeight: 'clamp(160px, 22vh, 210px)',
             background:
               'linear-gradient(180deg, rgba(58,17,21,0.9) 0%, rgba(24,9,14,0.94) 100%)',
             borderColor: 'rgba(213,178,91,0.42)',
@@ -244,24 +253,25 @@ export function QuestionPanel() {
           <FiligreeCorner position="bottom-right" />
           <textarea
             placeholder="พิมพ์คำถามของคุณ...(ไม่บังคับ)"
-            className="relative z-10 h-[112px] w-full resize-none bg-transparent pl-7 pr-7 pt-3 text-base font-light leading-relaxed outline-none placeholder:text-[#f0e6d4]/82"
+            className="relative z-10 h-[140px] w-full resize-none bg-transparent pl-7 pr-7 pt-3 text-base font-light leading-relaxed outline-none placeholder:text-[#f0e6d4]/82"
             style={{ color: '#ead7ba', caretColor: '#d7b55d' }}
+            onChange={(e) => onQuestionChange?.(e.target.value)}
           />
         </div>
 
-        <div className="relative mt-3 flex w-full max-w-[360px] flex-wrap justify-center gap-2 sm:max-w-none">
+        <div className="relative mt-4 grid w-full max-w-[640px] grid-cols-2 gap-2 sm:grid-cols-4">
           <div className="pointer-events-none absolute -top-8 left-1/2 h-14 w-[92%] -translate-x-1/2 rounded-[50%] bg-[#5f170f]/45 blur-xl" />
           {TOPIC_CHIPS.map((chip, index) => (
             <motion.button
               key={chip}
               type="button"
-              onClick={() => setSelected(index)}
-              className={`topic-chip relative box-border min-w-[104px] rounded-[5px] border px-3 py-2 text-xs shadow-[0_8px_16px_rgba(0,0,0,0.5)] sm:min-w-[96px] sm:px-4 sm:text-sm${selected === index ? ' topic-chip--selected' : ''}`}
+              onClick={() => onTopicChange(index)}
+              className={`topic-chip relative box-border flex h-10 items-center justify-center rounded-[5px] border px-2 text-xs shadow-[0_8px_16px_rgba(0,0,0,0.5)] sm:text-sm${selectedTopic === index ? ' topic-chip--selected' : ''}`}
               style={{
-                color: selected === index ? '#fff9eb' : '#f5ecd4',
-                borderColor: selected === index ? '#e8c96f' : 'rgba(210,180,112,0.38)',
+                color: selectedTopic === index ? '#fff9eb' : '#f5ecd4',
+                borderColor: selectedTopic === index ? '#e8c96f' : 'rgba(210,180,112,0.38)',
                 background:
-                  selected === index
+                  selectedTopic === index
                     ? 'linear-gradient(180deg, rgba(80,24,24,0.96), rgba(22,9,10,0.98))'
                     : 'linear-gradient(180deg, rgba(27,10,10,0.9), rgba(5,3,4,0.95))',
               }}
@@ -272,48 +282,69 @@ export function QuestionPanel() {
           ))}
         </div>
 
-        <div className="mt-4 flex w-full flex-wrap items-center justify-center gap-3 sm:mt-5 sm:gap-5">
-          <OracleButton variant="primary">เริ่มเลือกไพ่</OracleButton>
-          <OracleButton variant="secondary">ข้าม</OracleButton>
+        <div className="mt-6 flex w-full flex-wrap items-center justify-center gap-3 sm:gap-5">
+          <OracleButton variant="primary" onClick={onNext}>เริ่มเลือกไพ่</OracleButton>
+          <OracleButton variant="secondary" onClick={onNext}>ข้าม</OracleButton>
         </div>
       </motion.section>
     </ScrollReveal>
   )
 }
 
-export function TableTarotFan() {
+export function TableTarotFan({ 
+  selectedCards = [], 
+  onCardClick 
+}: { 
+  selectedCards?: number[], 
+  onCardClick?: (index: number) => void 
+}) {
   return (
-    <div className="pointer-events-none absolute bottom-[7.5vh] left-1/2 z-20 h-[120px] w-[720px] max-w-[94vw] -translate-x-1/2">
-      {TAROT_FAN.map((card, index) => (
-        <motion.div
-          key={`${card.x}-${card.r}`}
-          className="absolute bottom-0 h-[92px] w-[58px] rounded-[6px] border cursor-pointer pointer-events-auto"
-          style={{
-            left: `${card.x}%`,
-            rotate: card.r,
-            transformOrigin: 'center 120px',
-            background:
-              'linear-gradient(145deg, #6f3b16 0%, #2c120d 54%, #805019 100%)',
-            borderColor: 'rgba(221,176,80,0.74)',
-            boxShadow: '0 10px 22px rgba(0,0,0,0.42), inset 0 0 0 2px rgba(55,18,11,0.76)',
-          }}
-          initial={{ opacity: 0, y: 28, rotate: card.r - 6 }}
-          animate={{ opacity: 0.92, y: 0, rotate: card.r }}
-          whileHover={{ 
-            y: -15, 
-            scale: 1.15,
-            opacity: 1, 
-            zIndex: 50,
-            boxShadow: '0 15px 30px rgba(0,0,0,0.6), inset 0 0 0 2px rgba(226,180,77,0.8), 0 0 15px rgba(226,180,77,0.4)'
-          }}
-          transition={{ duration: 0.7, delay: 0.72 + index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="absolute inset-2 rounded-[4px] border border-[#e2b44d]/46" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="h-6 w-6 rotate-45 border border-[#e2b44d]/76" />
-          </div>
-        </motion.div>
-      ))}
+    <div className="pointer-events-none absolute bottom-[12vh] left-1/2 z-20 h-[120px] w-[720px] max-w-[94vw] -translate-x-1/2">
+      {TAROT_FAN.map((card, index) => {
+        const isSelected = selectedCards.includes(index)
+        return (
+          <motion.div
+            key={`${card.x}-${card.r}`}
+            onClick={() => onCardClick?.(index)}
+            className="absolute bottom-0 h-[92px] w-[58px] rounded-[6px] border cursor-pointer pointer-events-auto"
+            style={{
+              left: `${card.x}%`,
+              rotate: card.r,
+              transformOrigin: 'center 120px',
+              background: isSelected
+                ? 'linear-gradient(145deg, #a65c2b 0%, #4a211a 54%, #d4a031 100%)'
+                : 'linear-gradient(145deg, #6f3b16 0%, #2c120d 54%, #805019 100%)',
+              borderColor: isSelected ? '#ffcc5d' : 'rgba(221,176,80,0.74)',
+              boxShadow: isSelected 
+                ? '0 0 20px rgba(255,204,93,0.4), 0 10px 22px rgba(0,0,0,0.42)' 
+                : '0 10px 22px rgba(0,0,0,0.42)',
+              zIndex: isSelected ? 40 : 1,
+              y: isSelected ? -20 : 0,
+              scale: isSelected ? 1.1 : 1,
+            }}
+            initial={{ opacity: 0, y: 28, rotate: card.r - 6 }}
+            animate={{ 
+              opacity: 0.92, 
+              y: isSelected ? -20 : 0, 
+              rotate: card.r,
+              scale: isSelected ? 1.1 : 1
+            }}
+            whileHover={{ 
+              y: isSelected ? -25 : -15, 
+              scale: isSelected ? 1.2 : 1.15,
+              opacity: 1, 
+              zIndex: 50,
+              boxShadow: '0 15px 30px rgba(0,0,0,0.6), inset 0 0 0 2px rgba(226,180,77,0.8), 0 0 15px rgba(226,180,77,0.4)'
+            }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
+          >
+            <div className={`absolute inset-2 rounded-[4px] border ${isSelected ? 'border-[#ffcc5d]' : 'border-[#e2b44d]/46'}`} />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className={`h-6 w-6 rotate-45 border ${isSelected ? 'border-[#ffcc5d] shadow-[0_0_10px_#ffcc5d]' : 'border-[#e2b44d]/76'}`} />
+            </div>
+          </motion.div>
+        )
+      })}
     </div>
   )
 }
