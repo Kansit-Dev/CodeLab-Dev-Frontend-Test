@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useEffect } from 'react'
 
-export function CrystalBall() {
+export function CrystalBall({ intensity = 0 }: { intensity?: number }) {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
@@ -15,6 +15,10 @@ export function CrystalBall() {
   // Map mouse position to slight translate adjustments for the glow
   const xOffset = useTransform(x, [-1000, 1000], [-15, 15])
   const yOffset = useTransform(y, [-1000, 1000], [-15, 15])
+
+  // Intensity effect: increase glow and pulse speed based on text length
+  const glowBoost = Math.min(intensity * 0.02, 0.4)
+  const pulseScale = 1 + Math.min(intensity * 0.005, 0.1)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -37,7 +41,12 @@ export function CrystalBall() {
         <motion.div 
           className="crystal-ball-glow" 
           aria-hidden 
-          style={{ x: xOffset, y: yOffset }}
+          style={{ 
+            x: xOffset, 
+            y: yOffset,
+            opacity: 0.55 + glowBoost,
+            scale: pulseScale
+          }}
         />
         <div className="crystal-ball-glow crystal-ball-glow--outer" aria-hidden />
         <Image
@@ -49,6 +58,8 @@ export function CrystalBall() {
           className="crystal-ball-img"
           draggable={false}
         />
+        
+        {/* Magic Circle 1 - Original */}
         <svg viewBox="0 0 120 120" className="magic-circle" aria-hidden>
           <defs>
             <linearGradient id="oracle-line" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -64,11 +75,37 @@ export function CrystalBall() {
             strokeWidth="2"
           />
           <circle cx="60" cy="60" r="42" fill="none" stroke="url(#oracle-line)" strokeWidth="1.4" />
-          <circle cx="60" cy="60" r="23" fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="1" />
         </svg>
+
+        {/* Magic Circle 2 - Counter Rotating */}
+        <svg 
+          viewBox="0 0 120 120" 
+          className="magic-circle" 
+          aria-hidden 
+          style={{ 
+            width: '78%', 
+            height: '78%', 
+            animationDirection: 'reverse', 
+            animationDuration: '32s',
+            opacity: 0.4 + (glowBoost * 0.5)
+          }}
+        >
+          <circle cx="60" cy="60" r="50" fill="none" stroke="url(#oracle-line)" strokeWidth="1" strokeDasharray="4 8" />
+          <path
+            d="M60 20 L65 40 L85 45 L65 50 L60 70 L55 50 L35 45 L55 40 Z"
+            fill="none"
+            stroke="url(#oracle-line)"
+            strokeWidth="1.5"
+          />
+        </svg>
+
         <motion.div 
           className="crystal-inner-pulse" 
-          style={{ x: useTransform(x, [-1000, 1000], [-8, 8]), y: useTransform(y, [-1000, 1000], [-8, 8]) }}
+          style={{ 
+            x: useTransform(x, [-1000, 1000], [-8, 8]), 
+            y: useTransform(y, [-1000, 1000], [-8, 8]),
+            scale: pulseScale
+          }}
         />
         <div className="crystal-sphere-depth" aria-hidden />
         <div className="crystal-pedestal-glow" aria-hidden />

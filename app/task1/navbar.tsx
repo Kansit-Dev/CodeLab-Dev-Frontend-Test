@@ -24,7 +24,7 @@ export function Navbar() {
 
         <Link
           href="/task1"
-          className="font-[family-name:var(--font-playfair)] text-2xl tracking-[0.15em] text-[#2C1F14]"
+          className="font-[family-name:var(--font-playfair)] text-sm tracking-[0.4em] text-[#2C1F14] opacity-80 transition-opacity hover:opacity-100"
         >
           ORACLE
         </Link>
