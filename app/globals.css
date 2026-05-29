@@ -1,12 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-playfair: Georgia, 'Times New Roman', serif;
-  --font-inter: 'Segoe UI', Helvetica, Arial, sans-serif;
-  --font-dm-sans: 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-playfair: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-inter: 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-dm-sans: 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-pridi: Georgia, 'Times New Roman', 'Tahoma', serif;
   --font-sarabun: 'Leelawadee UI', 'Tahoma', 'Segoe UI', sans-serif;
   --background: oklch(0 0 0);
@@ -138,6 +139,8 @@
   --oracle-taupe: #8b7355;
   --oracle-blush: #d4a5a0;
   --oracle-border: #d4c5b5;
+  --oracle-dark: #1a110b;
+  --oracle-mist: #f5f1ea;
 }
 
 /* Task 1 — utilities */
@@ -150,11 +153,20 @@
   display: none;
 }
 
+/* Smooth image scale beyond tailwind default */
+.group-hover\:scale-108:is(:where(.group):hover *) {
+  transform: scale(1.08);
+}
+
+/* Product card hover */
+.duration-400 {
+  transition-duration: 400ms;
+}
+
+/* Animate opacity 0 → 1 on group hover */
 @media (hover: hover) and (pointer: fine) {
   .oracle-nav-link:hover {
-    text-decoration: underline;
     text-underline-offset: 4px;
-    text-decoration-color: rgba(212, 165, 160, 0.85);
   }
 }
 
