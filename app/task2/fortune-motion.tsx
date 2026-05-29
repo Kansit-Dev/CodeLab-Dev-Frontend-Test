@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { TAROT_FAN, TOPIC_CHIPS } from './data'
@@ -130,12 +130,12 @@ export function FortuneHeader() {
     }
   }
 
-  const charVariants = {
+  const charVariants: Variants = {
     hidden: { opacity: 0, x: -2 },
     visible: { 
       opacity: 1, 
       x: 0,
-      transition: { duration: 0.2, ease: "easeOut" } 
+      transition: { duration: 0.2, ease: "easeOut" as const } 
     }
   }
 
@@ -184,15 +184,18 @@ export function FortuneHeader() {
 function OracleButton({
   children,
   variant,
+  onClick,
 }: {
   children: React.ReactNode
   variant: 'primary' | 'secondary'
+  onClick?: () => void
 }) {
   const primary = variant === 'primary'
 
   return (
     <motion.button
       type="button"
+      onClick={onClick}
       className="oracle-cta-btn relative h-12 w-[180px] overflow-hidden rounded-full border font-[family-name:var(--font-pridi)] text-base font-semibold tracking-wide sm:w-[200px]"
       style={{
         color: primary ? '#f3e4b7' : '#ead9a2',
