@@ -177,7 +177,7 @@ export function Hero() {
         >
           {BRAND_STATS.map((stat) => (
             <div key={stat.label} className="text-left">
-              <p className="font-[family-name:var(--font-playfair)] text-2xl font-light text-[#FAF7F2] md:text-3xl">
+              <p className="text-2xl font-light tracking-widest text-[#FAF7F2] md:text-3xl">
                 {stat.value}
               </p>
               <p className="mt-1 text-[10px] uppercase tracking-[0.3em] text-[#D4C5B5]/70">
