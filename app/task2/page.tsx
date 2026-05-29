@@ -1,6 +1,7 @@
 'use client'
 
-import { motion, useTransform } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { CrystalBall } from './crystal-ball'
 import { HomeButton } from '@/components/home-button'
@@ -10,12 +11,36 @@ import {
   QuestionPanel,
   TableTarotFan,
 } from './fortune-motion'
-import { useFortuneController } from './use-fortune-controller'
 
 export default function FortuneTellingPage() {
-  const { state, actions } = useFortuneController()
-  const { step, question, selectedCards, parallax, selectedTopic } = state
-  const { bgX, bgY } = parallax
+  const [step, setStep] = useState<'question' | 'selection'>('question')
+  const [question, setQuestion] = useState('')
+  const [selectedCards, setSelectedCards] = useState<number[]>([])
+  
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  
+  const bgX = useTransform(mouseX, [-1000, 1000], [15, -15])
+  const bgY = useTransform(mouseY, [-1000, 1000], [10, -10])
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX - window.innerWidth / 2)
+      mouseY.set(e.clientY - window.innerHeight / 2)
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [mouseX, mouseY])
+
+  const toggleCard = (index: number) => {
+    setSelectedCards((prev) =>
+      prev.includes(index)
+        ? prev.filter((i) => i !== index)
+        : prev.length < 3
+        ? [...prev, index]
+        : prev
+    )
+  }
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-[#170607] pb-8 text-[#ead7ba]">
@@ -43,7 +68,7 @@ export default function FortuneTellingPage() {
       />
       <motion.div 
         className="fixed inset-0 bg-[#230207]/16 mix-blend-multiply" 
-        style={{ x: useTransform(bgX, (v: number) => v * 1.5), y: useTransform(bgY, (v: number) => v * 1.5) }}
+        style={{ x: useTransform(bgX, (v) => v * 1.5), y: useTransform(bgY, (v) => v * 1.5) }}
         aria-hidden 
       />
       <div
@@ -55,7 +80,7 @@ export default function FortuneTellingPage() {
       <CrystalBall intensity={question.length} />
       
       {step === 'selection' && (
-        <TableTarotFan selectedCards={selectedCards} onCardClick={actions.toggleCard} />
+        <TableTarotFan selectedCards={selectedCards} onCardClick={toggleCard} />
       )}
 
       {step === 'question' && (
@@ -63,12 +88,7 @@ export default function FortuneTellingPage() {
           <ScrollReveal>
             <FortuneHeader />
           </ScrollReveal>
-          <QuestionPanel 
-            selectedTopic={selectedTopic}
-            onTopicChange={actions.setSelectedTopic}
-            onQuestionChange={actions.setQuestion} 
-            onNext={actions.handleNextStep} 
-          />
+          <QuestionPanel onQuestionChange={setQuestion} onNext={() => setStep('selection')} />
         </>
       )}
     </main>

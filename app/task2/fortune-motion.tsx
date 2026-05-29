@@ -216,16 +216,14 @@ function OracleButton({
 }
 
 export function QuestionPanel({ 
-  selectedTopic,
-  onTopicChange,
   onQuestionChange,
   onNext 
 }: { 
-  selectedTopic: number
-  onTopicChange: (index: number) => void
   onQuestionChange?: (val: string) => void
   onNext?: () => void
 }) {
+  const [selected, setSelected] = useState(0)
+
   return (
     <ScrollReveal className="relative z-30 mx-auto flex w-full max-w-[760px] flex-col items-center px-4" delay={0.1}>
       <motion.section
@@ -265,13 +263,13 @@ export function QuestionPanel({
             <motion.button
               key={chip}
               type="button"
-              onClick={() => onTopicChange(index)}
-              className={`topic-chip relative box-border flex h-10 items-center justify-center rounded-[5px] border px-2 text-xs shadow-[0_8px_16px_rgba(0,0,0,0.5)] sm:text-sm${selectedTopic === index ? ' topic-chip--selected' : ''}`}
+              onClick={() => setSelected(index)}
+              className={`topic-chip relative box-border flex h-10 items-center justify-center rounded-[5px] border px-2 text-xs shadow-[0_8px_16px_rgba(0,0,0,0.5)] sm:text-sm${selected === index ? ' topic-chip--selected' : ''}`}
               style={{
-                color: selectedTopic === index ? '#fff9eb' : '#f5ecd4',
-                borderColor: selectedTopic === index ? '#e8c96f' : 'rgba(210,180,112,0.38)',
+                color: selected === index ? '#fff9eb' : '#f5ecd4',
+                borderColor: selected === index ? '#e8c96f' : 'rgba(210,180,112,0.38)',
                 background:
-                  selectedTopic === index
+                  selected === index
                     ? 'linear-gradient(180deg, rgba(80,24,24,0.96), rgba(22,9,10,0.98))'
                     : 'linear-gradient(180deg, rgba(27,10,10,0.9), rgba(5,3,4,0.95))',
               }}
