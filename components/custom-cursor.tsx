@@ -7,8 +7,10 @@ export function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    setIsMounted(true)
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY })
       if (!isVisible) setIsVisible(true)
@@ -45,7 +47,8 @@ export function CustomCursor() {
     }
   }, [isVisible])
 
-  if (typeof window === 'undefined') return null
+  // Fix hydration mismatch by only rendering on client
+  if (!isMounted) return null
 
   return (
     <motion.div
