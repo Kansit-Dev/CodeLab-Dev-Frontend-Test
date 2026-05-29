@@ -22,7 +22,7 @@ export default function FortuneTellingPage() {
       <HomeButton dark />
       
       {/* Understated Brand Identity */}
-      <div className="absolute left-10 top-10 z-50 pointer-events-none hidden lg:block">
+      <div>
         <span className="font-[family-name:var(--font-playfair)] text-sm tracking-[0.4em] text-[#e7c56c]/40 uppercase">
           Oracle
         </span>
