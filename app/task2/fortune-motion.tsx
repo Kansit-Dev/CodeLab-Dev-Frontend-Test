@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { TAROT_FAN, TOPIC_CHIPS } from './data'
@@ -56,7 +56,7 @@ export function FloatingEmbers() {
             duration: ember.duration,
             delay: ember.delay,
             repeat: Infinity,
-            ease: 'easeOut',
+            ease: 'easeOut' as const,
           }}
         />
       ))}
@@ -119,7 +119,7 @@ function OrnateDivider() {
 export function FortuneHeader() {
   const text = "คุณอยากถามเรื่องอะไร ?"
   
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
@@ -130,7 +130,7 @@ export function FortuneHeader() {
     }
   }
 
-  const charVariants = {
+  const charVariants: Variants = {
     hidden: { opacity: 0, x: -2 },
     visible: { 
       opacity: 1, 
@@ -144,7 +144,7 @@ export function FortuneHeader() {
       className="relative z-30 mx-auto w-full max-w-4xl px-5 pt-10 text-center md:pt-12"
       initial={{ opacity: 0, y: -14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] as const }}
     >
       <motion.h1
         className="mx-auto mb-2 max-w-[90%] font-[family-name:var(--font-pridi)] text-[clamp(1.8rem,4vw,3.5rem)] font-semibold leading-tight tracking-wide"
@@ -233,7 +233,7 @@ export function QuestionPanel({
         style={{ marginTop: 'clamp(160px, 28vh, 240px)' }}
         initial={{ opacity: 0, y: 28 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.9, delay: 0.42, ease: [0.16, 1, 0.3, 1] as const }}
       >
         <div
           className="oracle-glass-panel relative w-full overflow-hidden rounded-[18px] border px-7 py-6 shadow-[0_28px_70px_rgba(0,0,0,0.62)]"
@@ -336,7 +336,7 @@ export function TableTarotFan({
               zIndex: 50,
               boxShadow: '0 15px 30px rgba(0,0,0,0.6), inset 0 0 0 2px rgba(226,180,77,0.8), 0 0 15px rgba(226,180,77,0.4)'
             }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
           >
             <div className={`absolute inset-2 rounded-[4px] border ${isSelected ? 'border-[#ffcc5d]' : 'border-[#e2b44d]/46'}`} />
             <div className="absolute inset-0 flex items-center justify-center">
